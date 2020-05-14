@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Product } from '../../models/product';
+import { IProduct } from '../../models/IProduct';
 import {select, Store} from '@ngrx/store';
 import {ProductState} from '../../store/product.reducer';
 import * as fromProductActions from '../../store/product.actions';
@@ -13,7 +13,7 @@ import {selectedProduct} from '../../store/product.selecter';
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
-  product$: Observable<Product>;
+  product$: Observable<IProduct>;
 
   constructor(
     private route: ActivatedRoute,

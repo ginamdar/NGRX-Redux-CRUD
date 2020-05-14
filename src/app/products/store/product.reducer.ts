@@ -1,17 +1,17 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { Product } from '../models/product';
+import { IProduct } from '../models/IProduct';
 import * as ProductActions from './product.actions';
 
 export const productsFeatureKey = 'products';
 
-export interface ProductState extends EntityState<Product> {
+export interface ProductState extends EntityState<IProduct> {
   // additional entities state properties
   error: any;
-  selectedProduct: Product;
+  selectedProduct: IProduct;
 }
 
-export const adapter: EntityAdapter<Product> = createEntityAdapter<Product>();
+export const adapter: EntityAdapter<IProduct> = createEntityAdapter<IProduct>();
 
 export const initialState: ProductState = adapter.getInitialState({
   // additional entity state properties
@@ -59,26 +59,14 @@ export const reducer = createReducer(
       };
     }
   ),
-  on(ProductActions.upsertProduct,
-    (state, action) => adapter.upsertOne(action.product, state)
-  ),
-  on(ProductActions.upsertProducts,
-    (state, action) => adapter.upsertMany(action.products, state)
-  ),
   on(ProductActions.updateProduct,
     (state, action) => adapter.updateOne(action.product, state)
-  ),
-  on(ProductActions.updateProducts,
-    (state, action) => adapter.updateMany(action.products, state)
   ),
   on(ProductActions.deleteProduct,
     (state, action) => adapter.removeOne(action.id, state)
   ),
   on(ProductActions.deleteProducts,
     (state, action) => adapter.removeMany(action.ids, state)
-  ),
-  on(ProductActions.clearProducts,
-    state => adapter.removeAll(state)
   ),
 );
 

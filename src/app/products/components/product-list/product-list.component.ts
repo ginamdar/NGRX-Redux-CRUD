@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../../models/product';
+import { IProduct } from '../../models/IProduct';
 import { Router } from '@angular/router';
 import {select, Store} from '@ngrx/store';
 import {ProductState} from '../../store/product.reducer';
@@ -13,7 +13,7 @@ import {Observable} from 'rxjs';
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
-  products$: Observable<Product[]>;
+  products$: Observable<IProduct[]>;
 
   constructor(private store: Store<ProductState>, public router: Router) {}
 

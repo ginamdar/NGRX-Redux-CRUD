@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
 
-import { Product } from '../models/product';
+import { IProduct } from '../models/IProduct';
 
 // Load List Products
 export const loadProducts = createAction(
@@ -9,7 +9,7 @@ export const loadProducts = createAction(
 );
 export const loadProductsSuccess = createAction(
   '[Product List Effect] Load Products Success',
-  props<{ products: Product[] }>()
+  props<{ products: IProduct[] }>()
 );
 export const loadProductsFailure = createAction(
   '[Product List Effect] Load Products Failure',
@@ -17,12 +17,12 @@ export const loadProductsFailure = createAction(
 );
 // Load Product
 export const loadProduct = createAction(
-  '[Product Component] Load Product',
+  '[Product Components] Load Product',
   props<{ id: string }>()
 );
 export const loadProductSuccess = createAction(
   '[Product Effect ] Load Product Success',
-  props<{ selectedProduct: Product }>()
+  props<{ selectedProduct: IProduct }>()
 );
 export const loadProductFailure = createAction(
   '[Product Effect ] Load Product Failure',
@@ -32,12 +32,12 @@ export const loadProductFailure = createAction(
 // Add Product
 export const addProduct = createAction(
   '[Product Add Component] Add Product',
-  props<{ product: Product }>()
+  props<{ product: IProduct }>()
 );
 
 export const addProductSuccess = createAction(
   '[Product Add Effect] Add Product Success',
-  props<{ product: Product }>()
+  props<{ product: IProduct }>()
 );
 
 export const addProductFailure = createAction(
@@ -45,25 +45,10 @@ export const addProductFailure = createAction(
   props<{ error: any }>()
 );
 
-export const upsertProduct = createAction(
-  '[Product/API] Upsert Product',
-  props<{ product: Product }>()
-);
-
-
-export const upsertProducts = createAction(
-  '[Product/API] Upsert Products',
-  props<{ products: Product[] }>()
-);
-
+// Edit Component
 export const updateProduct = createAction(
-  '[Product/API] Update Product',
-  props<{ product: Update<Product> }>()
-);
-
-export const updateProducts = createAction(
-  '[Product/API] Update Products',
-  props<{ products: Update<Product>[] }>()
+  '[Product Edit Component] Update Product',
+  props<{ product: Update<IProduct> }>()
 );
 
 export const deleteProduct = createAction(
@@ -74,8 +59,4 @@ export const deleteProduct = createAction(
 export const deleteProducts = createAction(
   '[Product/API] Delete Products',
   props<{ ids: string[] }>()
-);
-
-export const clearProducts = createAction(
-  '[Product/API] Clear Products'
 );
