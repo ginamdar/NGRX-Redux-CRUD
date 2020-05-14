@@ -29,14 +29,7 @@ export class ProductComponent implements OnInit {
       );
   }
 
-  deleteProduct(id: number) {
-    const productsObserver = {
-      next: () => {
-        console.log('Product Deleted');
-        this.router.navigate(['/product/list']);
-      },
-      error: err => console.error(err)
-    };
-    // this.service.deleteProduct(id).subscribe(productsObserver);
+  deleteProduct(id: string) {
+    this.store.dispatch(fromProductActions.deleteProduct({id}));
   }
 }

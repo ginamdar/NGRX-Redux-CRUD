@@ -40,8 +40,6 @@ export class ProductEffects {
       {dispatch: false}
   );
 
-
-
   loadProducts$ = createEffect(() => this.actions$.pipe(
     ofType(fromProductActions.loadProducts),
     mergeMap(() => this.productService.getProducts()
@@ -54,6 +52,18 @@ export class ProductEffects {
     )
   );
 
+  deleteProduct$ = createEffect(() => this.actions$.pipe(
+    ofType(fromProductActions.deleteProduct),
+    mergeMap((action) => this.productService.deleteProduct(action.id)
+      .pipe(
+        map(
+          productId => fromProductActions.deleteProductSuccess({id: action.id})
+        ),
+        catchError((err) => of(fromProductActions.deleteProductFailure({error: err})))
+      ))
+    )
+  );
+
   loadProduct$ = createEffect(() => this.actions$.pipe(
     ofType(fromProductActions.loadProduct),
     mergeMap((action) => this.productService.getProduct(action.id)
@@ -62,7 +72,7 @@ export class ProductEffects {
           product => fromProductActions.loadProductSuccess({selectedProduct: product})
         ),
         catchError((err) => of(fromProductActions.loadProductFailure({error: err})))
-      ))
+      )),
     )
   );
 

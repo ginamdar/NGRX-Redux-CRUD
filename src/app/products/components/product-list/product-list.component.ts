@@ -29,14 +29,7 @@ export class ProductListComponent implements OnInit {
         );
   }
 
-  deleteProduct(id: number) {
-    const productsObserver = {
-      next: () => {
-        console.log('Product Deleted');
-        this.ngOnInit();
-      },
-      error: err => console.error(err)
-    };
-    // this.productService.deleteProduct(id).subscribe(productsObserver);
+  deleteProduct(id: string) {
+    this.store.dispatch(fromProductActions.deleteProduct({id}));
   }
 }
