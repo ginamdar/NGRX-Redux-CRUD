@@ -25,4 +25,28 @@ export class ProductEffects {
       );
   });
 
+  loadProducts$ = createEffect(() => this.actions$.pipe(
+    ofType(fromProductActions.loadProducts),
+    mergeMap(() => this.productService.getProducts()
+      .pipe(
+        map(
+          products => fromProductActions.loadProductsSuccess({products})
+        ),
+        catchError((err) => of(fromProductActions.loadProductsFailure({error: err})))
+      ))
+    )
+  );
+
+  loadProduct$ = createEffect(() => this.actions$.pipe(
+    ofType(fromProductActions.loadProduct),
+    mergeMap((action) => this.productService.getProduct(action.id)
+      .pipe(
+        map(
+          product => fromProductActions.loadProductSuccess({selectedProduct: product})
+        ),
+        catchError((err) => of(fromProductActions.loadProductFailure({error: err})))
+      ))
+    )
+  );
+
 }

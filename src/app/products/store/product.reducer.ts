@@ -8,13 +8,15 @@ export const productsFeatureKey = 'products';
 export interface ProductState extends EntityState<Product> {
   // additional entities state properties
   error: any;
+  selectedProduct: Product;
 }
 
 export const adapter: EntityAdapter<Product> = createEntityAdapter<Product>();
 
 export const initialState: ProductState = adapter.getInitialState({
   // additional entity state properties
-  error: undefined
+  error: undefined,
+  selectedProduct: undefined
 });
 
 
@@ -24,6 +26,32 @@ export const reducer = createReducer(
     (state, action) => adapter.addOne(action.product, state)
   ),
   on(ProductActions.addProductFailure,
+    (state, action) => {
+      return {
+        ...state,
+        error: action.error
+      };
+    }
+  ),
+  on(ProductActions.loadProductsSuccess,
+    (state, action) => adapter.setAll(action.products, state)
+  ),
+  on(ProductActions.loadProductsFailure,
+    (state, action) => {
+      return {
+        ...state, error: action.error
+      };
+    }
+  ),
+  on(ProductActions.loadProductSuccess,
+    (state, action) => {
+      return{
+        ...state,
+        selectedProduct: action.selectedProduct
+      };
+    }
+  ),
+  on(ProductActions.loadProductFailure,
     (state, action) => {
       return {
         ...state,
@@ -48,9 +76,6 @@ export const reducer = createReducer(
   ),
   on(ProductActions.deleteProducts,
     (state, action) => adapter.removeMany(action.ids, state)
-  ),
-  on(ProductActions.loadProducts,
-    (state, action) => adapter.setAll(action.products, state)
   ),
   on(ProductActions.clearProducts,
     state => adapter.removeAll(state)
