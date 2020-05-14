@@ -20,14 +20,19 @@ export const initialState: ProductState = adapter.getInitialState({
 
 export const reducer = createReducer(
   initialState,
-  on(ProductActions.addProduct,
+  on(ProductActions.addProductSuccess,
     (state, action) => adapter.addOne(action.product, state)
+  ),
+  on(ProductActions.addProductFailure,
+    (state, action) => {
+      return {
+        ...state,
+        error: action.error
+      };
+    }
   ),
   on(ProductActions.upsertProduct,
     (state, action) => adapter.upsertOne(action.product, state)
-  ),
-  on(ProductActions.addProducts,
-    (state, action) => adapter.addMany(action.products, state)
   ),
   on(ProductActions.upsertProducts,
     (state, action) => adapter.upsertMany(action.products, state)

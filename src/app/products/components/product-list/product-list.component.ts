@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { Product } from "../../models/product";
-import { ProductService } from "../../services/product.service";
-import { Router } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { Product } from '../../models/product';
+import { ProductService } from '../../services/product.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: "app-product-list",
-  templateUrl: "./product-list.component.html",
-  styleUrls: ["./product-list.component.scss"]
+  selector: 'app-product-list',
+  templateUrl: './product-list.component.html',
+  styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
@@ -29,7 +29,7 @@ export class ProductListComponent implements OnInit {
   deleteProduct(id: number) {
     const productsObserver = {
       next: () => {
-        console.log("Product Deleted");
+        console.log('Product Deleted');
         this.ngOnInit();
       },
       error: err => console.error(err)
